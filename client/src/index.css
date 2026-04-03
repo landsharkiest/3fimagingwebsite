@@ -1,0 +1,264 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  /* 3F Imaging Brand Color Palette */
+  --primary: #FF9966;
+  --primary-foreground: #FFFFFF;
+  --secondary: #FF6633;
+  --secondary-foreground: #FFFFFF;
+  --accent: #FF6633;
+  --accent-foreground: #FFFFFF;
+  --destructive: #FF9966;
+  --destructive-foreground: #FFFFFF;
+  --sidebar-primary: #FF9966;
+  --sidebar-primary-foreground: #FFFFFF;
+  --chart-1: #FF9966;
+  --chart-2: #FF6633;
+  --chart-3: #1A1A1A;
+  --chart-4: #2D3748;
+  --chart-5: #4A5568;
+  --radius: 0.75rem;
+  --background: #FFFFFF;
+  --foreground: #1A1A1A;
+  --card: #FFFFFF;
+  --card-foreground: #1A1A1A;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A1A1A;
+  --muted: #F5F5F5;
+  --muted-foreground: #666666;
+  --border: #E2E8F0;
+  --input: #FFFFFF;
+  --ring: #FF9966;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #1A1A1A;
+  --sidebar-accent: #F7FAFC;
+  --sidebar-accent-foreground: #1A1A1A;
+  --sidebar-border: #E2E8F0;
+  --sidebar-ring: #FF9966;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    overflow-x: hidden;
+    min-width: 0;
+  }
+  img:not([class*="object-cover"]) {
+    max-width: 100%;
+    height: auto;
+  }
+  /* Improve touch targets and remove tap highlight on buttons/links */
+  @media (hover: none) and (pointer: coarse) {
+    a, button {
+      -webkit-tap-highlight-color: transparent;
+    }
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    @apply cursor-pointer;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  
+  h1 {
+    @apply text-5xl md:text-6xl font-black;
+    font-weight: 900;
+  }
+  
+  h2 {
+    @apply text-4xl md:text-5xl;
+    font-weight: 800;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl;
+    font-weight: 700;
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1280px;
+    }
+  }
+  
+  /* Bold Industrial Modernism Components */
+  
+  .dashed-border {
+    border: 2px dashed #FF9966;
+    border-radius: 0.5rem;
+  }
+  
+  .badge-number {
+    @apply inline-flex items-center justify-center w-8 h-8 rounded-full bg-red-500 text-white font-bold text-sm;
+    background-color: #FF9966;
+    box-shadow: 0 4px 12px rgba(255, 153, 102, 0.3);
+  }
+  
+  .accent-green {
+    color: #00D084;
+  }
+  
+  .accent-red {
+    color: #FF9966;
+  }
+  
+  .btn-primary {
+    @apply px-6 py-3 rounded-full font-bold text-white transition-all duration-300;
+    background-color: #FF9966;
+  }
+  
+  .btn-primary:hover {
+    background-color: #FF7744;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(255, 153, 102, 0.4);
+  }
+  
+  .btn-secondary {
+    @apply px-6 py-3 rounded-full font-bold transition-all duration-300;
+    color: #00D084;
+    border: 2px solid #00D084;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #00D084;
+    color: #1A1A1A;
+  }
+  
+  /* Carousel and Animation Styles */
+  
+  .fade-in-animation {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .writing-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+  }
+  
+  .vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+  }
+  
+  .slide-in-animation {
+    animation: slideInRight 0.6s ease-out;
+  }
+  
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideInImage {
+    from {
+      opacity: 0;
+      transform: translateX(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
