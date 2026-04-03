@@ -1,14 +1,17 @@
 import { ChevronRight, MapPin, Zap, Users, Award, Eye, Target, Menu, X } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { publicVideoUrl } from "@/lib/videoAssets";
 
 export default function Home() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [activeServiceIdx, setActiveServiceIdx] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [signedVideoUrls, setSignedVideoUrls] = useState<Record<string, string>>({});
 
-  const heroVideoFiles = ["hero-video.mp4", "421 Lake Plavid 1.mp4", "Bridgeport Parade Home.mp4"];
+  const heroVideoFiles = [
+    "hero-video.mp4",
+    "421 Lake Plavid 1 (1).mp4",
+    "Bridgeport Parade Home (1).mp4",
+  ];
 
   const services = [
     {
@@ -24,7 +27,7 @@ export default function Home() {
       shortTitle: "Video",
       description: "Professional real estate video for listings and marketing. Clear deliverables, reliable turnaround. Built for busy agents.",
       image: "/dronephoto.jpg",
-      video: "videoShowcase.mp4"
+      video: "videoShowcase (1).mp4"
     },
     {
       number: "03",
@@ -57,34 +60,6 @@ export default function Home() {
   ];
 
   const currentService = services[activeServiceIdx];
-  const allVideoFiles = useMemo(() => [...heroVideoFiles, "videoShowcase.mp4"], []);
-
-  useEffect(() => {
-    let cancelled = false;
-    const filesQuery = allVideoFiles.map(file => encodeURIComponent(file)).join(",");
-
-    async function loadSignedUrls() {
-      try {
-        const response = await fetch(`/api/video-urls?files=${filesQuery}`);
-        if (!response.ok) return;
-        const data = (await response.json()) as { urls?: Record<string, string> };
-        if (!cancelled && data.urls) {
-          setSignedVideoUrls(data.urls);
-        }
-      } catch {
-        // Fallback to local/public URLs when signing endpoint is unavailable.
-      }
-    }
-
-    loadSignedUrls();
-    return () => {
-      cancelled = true;
-    };
-  }, [allVideoFiles]);
-
-  function resolveVideoSrc(file: string) {
-    return signedVideoUrls[file] ?? publicVideoUrl(file);
-  }
 
   const whyChooseUs = [
     {
@@ -210,7 +185,7 @@ export default function Home() {
                 playsInline
                 preload="metadata"
                 className="w-full h-full object-cover"
-                src={resolveVideoSrc(file)}
+                src={publicVideoUrl(file)}
               />
             </div>
           ))}
@@ -287,7 +262,7 @@ export default function Home() {
                   {"video" in currentService && currentService.video ? (
                     <video
                       key={activeServiceIdx}
-                      src={resolveVideoSrc(currentService.video)}
+                      src={publicVideoUrl(currentService.video)}
                       poster={currentService.image}
                       autoPlay
                       loop
